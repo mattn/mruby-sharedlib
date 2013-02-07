@@ -7,7 +7,7 @@ MRuby.each_target do
 
         mruby_dll = "#{build_dir}/bin/mruby.dll"
         file mruby_dll do |t|
-          is_vc = ENV['OS'] == 'Windows_NT' && cc.command =~ /^cl(\.exe)?$/
+          is_vc = cc.command =~ /^cl(\.exe)?$/
           deffile = "#{File.dirname(__FILE__)}/mruby.def"
           options = {
               :flags => is_vc ? '/DLL' : '-shared',
