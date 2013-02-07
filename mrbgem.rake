@@ -12,7 +12,7 @@ MRuby.each_target do
           options = {
               :flags => is_vc ? '/DLL' : '-shared',
               :outfile => mruby_dll,
-              :objs => "",
+              :objs => '',
               :libs => [
                   (is_vc ? '/DEF:' : '') + deffile,
                   libfile("#{build_dir}/lib/libmruby")].flatten.join(" "),
