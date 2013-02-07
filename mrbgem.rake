@@ -4,10 +4,10 @@ MRuby.each_target do
       alias_method :old_print_build_summary_for_dll, :print_build_summary
       def print_build_summary 
         orig = gems.clone.reject {|g| g.name == 'mruby-dll'}
-		old_print_build_summary_for_dll
-	    gems = orig
+        old_print_build_summary_for_dll
+        gems = orig
 
-		mruby_dll = "#{build_dir}/bin/mruby.dll"
+        mruby_dll = "#{build_dir}/bin/mruby.dll"
         file mruby_dll do |t|
           is_vc = ENV['OS'] == 'Windows_NT' && cc.command =~ /^cl(\.exe)?$/
           deffile = "#{File.dirname(__FILE__)}/mruby.def"
