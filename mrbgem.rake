@@ -3,9 +3,7 @@ MRuby.each_target do
     class Build
       alias_method :old_print_build_summary_for_dll, :print_build_summary
       def print_build_summary 
-        orig = gems.clone.reject {|g| g.name == 'mruby-dll'}
         old_print_build_summary_for_dll
-        gems = orig
 
         mruby_dll = "#{build_dir}/bin/mruby.dll"
         file mruby_dll do |t|
