@@ -7,6 +7,8 @@ module MRuby
 end
 
 MRuby.each_target do
+  next if kind_of? MRuby::CrossBuild
+
   mruby_dll = "#{build_dir}/bin/mruby.#{mruby_dll_ext}"
   @bins << "mruby.#{mruby_dll_ext}"
 
