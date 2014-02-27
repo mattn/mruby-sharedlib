@@ -1,15 +1,19 @@
-def mruby_dll_ext
-  (`uname` =~ /darwin/i)? 'dylib' : ENV['OS'] == 'Windows_NT'? 'dll' : 'so'
+module MRuby
+  class Build
+    def mruby_dll_ext
+      (`uname` =~ /darwin/i)? 'dylib' : (ENV['OS'] == 'Windows_NT')? 'dll' : 'so'
+    end
+  end
 end
 
 MRuby.each_target do
   mruby_dll = "#{build_dir}/bin/mruby.#{mruby_dll_ext}"
+  @bins << "mruby.#{mruby_dll_ext}"
 
   file mruby_dll => libfile("#{build_dir}/lib/libmruby") do |t|
     is_vc = cc.command =~ /^cl(\.exe)?$/
     deffile = "#{File.dirname(__FILE__)}/mruby.def"
 
-    _pp "LD", mruby_dll
     gem_flags = gems.map { |g| g.linker.flags }
     gem_flags << (is_vc ? "/DEF:#{deffile}" : mruby_dll_ext == 'dylib'? '-Wl,-force_load' : "-Wl,--whole-archive")
     gem_flags += t.prerequisites
@@ -21,18 +25,4 @@ MRuby.each_target do
   end
 
   task :all => mruby_dll
-
-  module MRuby
-    class Build
-      alias_method :old_print_build_summary_for_dll, :print_build_summary
-      def print_build_summary
-        old_print_build_summary_for_dll
-        puts "================================================"
-        puts "           Extras:"
-        puts "             #{build_dir}/bin/mruby.#{mruby_dll_ext}"
-        puts "================================================"
-        puts
-      end
-    end
-  end
 end
