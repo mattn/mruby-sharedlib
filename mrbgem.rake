@@ -9,6 +9,13 @@ end
 MRuby.each_target do
   next if kind_of? MRuby::CrossBuild
 
+  alias default_exefile exefile
+
+  def self.exefile(name)
+    return name if name.kind_of? String and name.end_with? ".#{mruby_dll_ext}"
+    default_exefile name
+  end
+
   mruby_dll = "#{build_dir}/bin/mruby.#{mruby_dll_ext}"
   @bins << "mruby.#{mruby_dll_ext}"
 
@@ -25,6 +32,4 @@ MRuby.each_target do
     gem_flags_after_libraries = gems.map { |g| g.linker.flags_after_libraries }
     linker.run t.name, [], gem_libraries, gem_library_paths, gem_flags, gem_flags_before_libraries, gem_flags_after_libraries
   end
-
-  task :all => mruby_dll
 end
