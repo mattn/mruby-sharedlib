@@ -37,6 +37,4 @@ MRuby.each_target do
     gem_flags_after_libraries = gems.map { |g| g.linker.flags_after_libraries }
     linker.run t.name, [], gem_libraries, gem_library_paths, gem_flags, gem_flags_before_libraries, gem_flags_after_libraries
   end
-
-  task :all => mruby_sharedlib
 end
