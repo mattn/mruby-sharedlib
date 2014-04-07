@@ -150,7 +150,6 @@ EXPORTS
 	mrb_load_nstring_cxt
 	mrb_load_string
 	mrb_load_string_cxt
-	mrb_longjmp
 	mrb_make_exception
 	mrb_mod_class_variables
 	mrb_mod_constants
