@@ -211,7 +211,6 @@ EXPORTS
 	mrb_singleton_class
 	mrb_str_append
 	mrb_str_buf_append
-	mrb_str_buf_cat
 	mrb_str_buf_new
 	mrb_str_cat
 	mrb_str_cat_cstr
