@@ -62,7 +62,6 @@ EXPORTS
 	mrb_define_method
 	mrb_define_method_id
 	mrb_define_method_raw
-	mrb_define_method_vm
 	mrb_define_module_function
 	mrb_define_module_id
 	mrb_define_module_under
