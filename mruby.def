@@ -23,6 +23,7 @@ EXPORTS
 	mrb_assoc_new
 	mrb_attr_get
 	mrb_bug
+	mrb_calloc
 	mrb_check_array_type
 	mrb_check_convert_type
 	mrb_check_hash_type
@@ -51,9 +52,11 @@ EXPORTS
 	mrb_cv_get
 	mrb_cv_set
 	mrb_data_check_type
+	mrb_data_get_ptr
 	mrb_debug_get_line
 	mrb_debug_info_free
 	mrb_define_alias
+	mrb_define_class
 	mrb_define_class_id
 	mrb_define_class_method
 	mrb_define_class_under
@@ -62,6 +65,7 @@ EXPORTS
 	mrb_define_method
 	mrb_define_method_id
 	mrb_define_method_raw
+	mrb_define_module
 	mrb_define_module_function
 	mrb_define_module_id
 	mrb_define_module_under
@@ -150,6 +154,7 @@ EXPORTS
 	mrb_load_string
 	mrb_load_string_cxt
 	mrb_make_exception
+	mrb_malloc
 	mrb_mod_class_variables
 	mrb_mod_constants
 	mrb_mod_cv_defined
@@ -160,6 +165,7 @@ EXPORTS
 	mrb_module_new
 	mrb_name_error
 	mrb_num_div
+	mrb_obj_alloc
 	mrb_obj_as_string
 	mrb_obj_class
 	mrb_obj_classname
@@ -228,10 +234,12 @@ EXPORTS
 	mrb_str_pool
 	mrb_str_resize
 	mrb_str_substr
+	mrb_str_to_cstr
 	mrb_str_to_dbl
 	mrb_str_to_inum
 	mrb_str_to_str
 	mrb_string_type
+	mrb_string_value_cstr
 	mrb_sym2str
 	mrb_sys_fail
 	mrb_to_int
