@@ -26,12 +26,26 @@ MRuby.each_target do
     is_vc = cc.command =~ /^cl(\.exe)?$/
     is_mingw = ENV['OS'] == 'Windows_NT' && cc.command =~ /^gcc/
     deffile = "#{File.dirname(__FILE__)}/mruby.def"
+    unsed_whole_archive = false
 
     gem_flags = gems.map { |g| g.linker.flags }
-    gem_flags << (is_vc ? '/DLL' : '-shared')
-    gem_flags << (is_vc ? "/DEF:#{deffile}" : mruby_sharedlib_ext == 'dylib'? '-Wl,-force_load' : is_mingw ? deffile : "-Wl,--whole-archive")
+    if is_vc
+      gem_flags << '/DLL' << "/DEF:#{deffile}"
+    else
+      gem_flags << '-shared'
+      gem_flags <<
+        if mruby_sharedlib_ext == 'dylib'
+          '-Wl,-force_load'
+        elsif is_mingw
+          deffile
+        else
+          unsed_whole_archive = true
+          "-Wl,--whole-archive"
+        end
+    end
     gem_flags << "/MACHINE:#{ENV['Platform']}" if is_vc && ENV['Platform']
     gem_flags += t.prerequisites
+    gem_flags << '-Wl,--no-whole-archive' if unsed_whole_archive
     gem_libraries = gems.map { |g| g.linker.libraries }
     gem_library_paths = gems.map { |g| g.linker.library_paths }
     gem_flags_before_libraries = gems.map { |g| g.linker.flags_before_libraries }
