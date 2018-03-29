@@ -22,6 +22,11 @@ MRuby.each_target do
   mruby_sharedlib = "#{build_dir}/bin/mruby.#{mruby_sharedlib_ext}"
   @bins << "mruby.#{mruby_sharedlib_ext}"
 
+  if cc.command !~ /^cl(\.exe)?$/
+    self.cc.flags << '-fPIC'
+    self.cxx.flags << '-fPIC'
+  end
+
   file mruby_sharedlib => libfile("#{build_dir}/lib/libmruby") do |t|
     is_vc = cc.command =~ /^cl(\.exe)?$/
     is_mingw = ENV['OS'] == 'Windows_NT' && cc.command =~ /^gcc/
